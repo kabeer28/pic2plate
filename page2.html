@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recipe Grid</title>
-<style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recipe Grid</title>
+        <style>
         body {
             font-family: Georgia, 'Times New Roman', Times, serif, Sans-Serif;
             background-color: #d3f0df;
@@ -66,64 +66,68 @@
             margin: 10px 0;
         }
         .recipe-card .add-button {
+            display: inline-block;
             font-size: 24px;
             color: #ffffff;
             background-color: #345c45;
             border: none;
             border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            text-decoration: none;
             width: 40px;
             height: 40px;
-            cursor: pointer;
         }
-</style>
-</head>
-<body>
-<div class="container">
-<!-- Filter Section -->
-<div class="filter-section">
-<h2>Filters</h2>
-<ul>
-<li class="active">+Vegan</li>
-<li class="active">+Halal</li>
-<li class="active">+Gluten Free</li>
-<li class="active">&lt;600cal</li>
-<li class="active">&gt;600cal</li>
-</ul>
-</div>
- 
-        <!-- Recipe Grid Section -->
-<div class="recipe-grid">
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 1</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 2</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 3</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 4</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 5</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 6</h3>
-<button class="add-button">+</button>
-</div>
-</div>
-</div>
-</body>
+        </style>
+    </head>
+    <body>
+        <div class="container">
+                <!-- Filter Section -->
+            <div class="filter-section">
+                <h2>Filters</h2>
+                <ul>
+                    <li class="active"> <a href="https://www.example.com" class="button">+Vegan</a></li>
+                    <li class="active"> <a href="https://www.example.com" class="button">+Halal</a></li>
+                    <li class="active"> <a href="https://www.example.com" class="button">+Gluten Free</a></li>
+                    <li class="active"> <a href="https://www.example.com" class="button">&lt;600cal</a></li>
+                    <li class="active"> <a href="https://www.example.com" class="button">&gt;600cal</a></li>
+                </ul>
+            </div>
+    
+            <!-- Recipe Grid Section -->
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <div class="recipe-image"></div>
+                    <h3>Recipe 1</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image"></div>
+                    <h3>Recipe 2</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image"></div>
+                    <h3>Recipe 3</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image"></div>
+                    <h3>Recipe 4</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image"></div>
+                    <h3>Recipe 5</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image"></div>
+                    <h3>Recipe 6</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
