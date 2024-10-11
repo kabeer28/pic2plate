@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Grid</title>
+<style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, Sans-Serif;
+            background-color: #d3f0df;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .filter-section {
+            width: 20%;
+            background-color: #345c45;
+            color: white;
+            padding: 20px;
+        }
+        .filter-section h2 {
+            color: #f1e36a;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .filter-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .filter-section li {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .filter-section .active {
+            background-color: #b9d1a1;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .recipe-grid {
+            width: 75%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+        .recipe-card {
+            background-color: #a8d1b7;
+            border-radius: 10px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .recipe-card .recipe-image {
+            width: 100px;
+            height: 100px;
+            background-color: #e1e1e1;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+        }
+        .recipe-card h3 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .recipe-card .add-button {
+            font-size: 24px;
+            color: #ffffff;
+            background-color: #345c45;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+</style>
+</head>
+<body>
+<div class="container">
+<!-- Filter Section -->
+<div class="filter-section">
+<h2>Filters</h2>
+<ul>
+<li class="active">+Vegan</li>
+<li class="active">+Halal</li>
+<li class="active">+Gluten Free</li>
+<li class="active">&lt;600cal</li>
+<li class="active">&gt;600cal</li>
+</ul>
+</div>
+ 
+        <!-- Recipe Grid Section -->
+<div class="recipe-grid">
+<div class="recipe-card">
+<div class="recipe-image"></div>
+<h3>Recipe 1</h3>
+<button class="add-button">+</button>
+</div>
+<div class="recipe-card">
+<div class="recipe-image"></div>
+<h3>Recipe 2</h3>
+<button class="add-button">+</button>
+</div>
+<div class="recipe-card">
+<div class="recipe-image"></div>
+<h3>Recipe 3</h3>
+<button class="add-button">+</button>
+</div>
+<div class="recipe-card">
+<div class="recipe-image"></div>
+<h3>Recipe 4</h3>
+<button class="add-button">+</button>
+</div>
+<div class="recipe-card">
+<div class="recipe-image"></div>
+<h3>Recipe 5</h3>
+<button class="add-button">+</button>
+</div>
+<div class="recipe-card">
+<div class="recipe-image"></div>
+<h3>Recipe 6</h3>
+<button class="add-button">+</button>
+</div>
+</div>
+</div>
+</body>
+</html>
