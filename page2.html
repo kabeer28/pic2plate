@@ -5,22 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Recipe Grid</title>
 <style>
-        body {
+        html, body {
             font-family: Georgia, 'Times New Roman', Times, serif, Sans-Serif;
             background-color: #d3f0df;
             margin: 0;
             padding: 0;
+            height: 100%; /* Ensure body takes full height */
         }
         .container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            width: 100%;
+            height: 100%; /* Make the container take up full screen height */
         }
         .filter-section {
-            width: 20%;
+            flex-grow: 1;
+            max-width: 20%;
             background-color: #345c45;
             color: white;
             padding: 20px;
+            box-sizing: border-box; /* Include padding in the width */
         }
         .filter-section h2 {
             color: #f1e36a;
@@ -41,11 +46,12 @@
             border-radius: 5px;
         }
         .recipe-grid {
-            width: 75%;
+            flex-grow: 3;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 20px;
+            box-sizing: border-box; /* Include padding in the width */
         }
         .recipe-card {
             background-color: #a8d1b7;
@@ -79,51 +85,51 @@
 </head>
 <body>
 <div class="container">
-<!-- Filter Section -->
-<div class="filter-section">
-<h2>Filters</h2>
-<ul>
-<li class="active">+Vegan</li>
-<li class="active">+Halal</li>
-<li class="active">+Gluten Free</li>
-<li class="active">&lt;600cal</li>
-<li class="active">&gt;600cal</li>
-</ul>
-</div>
- 
-        <!-- Recipe Grid Section -->
-<div class="recipe-grid">
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 1</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 2</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 3</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 4</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 5</h3>
-<button class="add-button">+</button>
-</div>
-<div class="recipe-card">
-<div class="recipe-image"></div>
-<h3>Recipe 6</h3>
-<button class="add-button">+</button>
-</div>
-</div>
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <h2>Filters</h2>
+        <ul>
+            <li class="active">+Vegan</li>
+            <li class="active">+Halal</li>
+            <li class="active">+Gluten Free</li>
+            <li class="active">&lt;600cal</li>
+            <li class="active">&gt;600cal</li>
+        </ul>
+    </div>
+
+    <!-- Recipe Grid Section -->
+    <div class="recipe-grid">
+        <div class="recipe-card">
+            <div class="recipe-image"></div>
+            <h3>Recipe 1</h3>
+            <button class="add-button">+</button>
+        </div>
+        <div class="recipe-card">
+            <div class="recipe-image"></div>
+            <h3>Recipe 2</h3>
+            <button class="add-button">+</button>
+        </div>
+        <div class="recipe-card">
+            <div class="recipe-image"></div>
+            <h3>Recipe 3</h3>
+            <button class="add-button">+</button>
+        </div>
+        <div class="recipe-card">
+            <div class="recipe-image"></div>
+            <h3>Recipe 4</h3>
+            <button class="add-button">+</button>
+        </div>
+        <div class="recipe-card">
+            <div class="recipe-image"></div>
+            <h3>Recipe 5</h3>
+            <button class="add-button">+</button>
+        </div>
+        <div class="recipe-card">
+            <div class="recipe-image"></div>
+            <h3>Recipe 6</h3>
+            <button class="add-button">+</button>
+        </div>
+    </div>
 </div>
 </body>
 </html>
