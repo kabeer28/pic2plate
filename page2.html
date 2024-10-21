@@ -10,21 +10,25 @@
             background-color: #d3f0df;
             margin: 0;
             padding: 0;
+            height: 100vh;
         }
         .container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            height: 100%;
         }
         .filter-section {
-            width: 20%;
-            background-color: #345c45;
+          flex: 0 0 20%;
+            width: 10%;
+            background-color: #69967d;
             color: white;
             padding: 20px;
+            height: 100%;
         }
         .filter-section h2 {
-            color: #f1e36a;
-            font-size: 24px;
+            color: #fafafa;
+            font-size: 40px;
             margin-bottom: 20px;
         }
         .filter-section ul {
@@ -37,15 +41,24 @@
         }
         .filter-section .active {
             background-color: #b9d1a1;
+            font-family: Times New Roman;
+            font-size: 40px;
             padding: 5px;
             border-radius: 5px;
+            margin-bottom: 8px;
+        }
+        .active.selected {
+            background-color: #7f8080;
         }
         .recipe-grid {
-            width: 75%;
+          flex: 1;
+            /*width: 75%;*/
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             padding: 20px;
+            height: 100%;
+            overflow-y: auto;
         }
         .recipe-card {
             background-color: #a8d1b7;
@@ -55,29 +68,29 @@
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
         }
         .recipe-card .recipe-image {
-            width: 100px;
-            height: 100px;
+            width: 180px;
+            height: 180px;
             background-color: #e1e1e1;
             border-radius: 50%;
             margin: 0 auto 15px;
         }
         .recipe-card h3 {
-            font-size: 20px;
+            font-size: 30px;
             margin: 10px 0;
         }
         .recipe-card .add-button {
             display: inline-block;
-            font-size: 24px;
+            font-size: 60px;
             color: #ffffff;
             background-color: #345c45;
             border: none;
             border-radius: 50%;
             text-align: center;
-            line-height: 40px;
+            line-height: 70px;
             cursor: pointer;
             text-decoration: none;
-            width: 40px;
-            height: 40px;
+            width: 80px;
+            height: 80px;
         }
         </style>
     </head>
@@ -85,13 +98,27 @@
         <div class="container">
                 <!-- Filter Section -->
             <div class="filter-section">
-                <h2>Filters</h2>
+                <h2 font-size: 20px;>Filters</h2>
                 <ul>
+                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">Vegan</button>
+                  <br>
+                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">Halal</button>
+                  <br>
+                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">Gluten Free</button>
+                  <br>
+                  <button class = "active filter-btn" type="button" onclick="alert('Hello World')">Lactose Free</button>
+                  <br>
+                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">&lt;600cal</button>
+                  <br>
+                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">&gt;600cal</button>
+
+
+<!-- 
                     <li class="active"> <a href="https://www.example.com" class="button">+Vegan</a></li>
                     <li class="active"> <a href="https://www.example.com" class="button">+Halal</a></li>
                     <li class="active"> <a href="https://www.example.com" class="button">+Gluten Free</a></li>
                     <li class="active"> <a href="https://www.example.com" class="button">&lt;600cal</a></li>
-                    <li class="active"> <a href="https://www.example.com" class="button">&gt;600cal</a></li>
+                    <li class="active"> <a href="https://www.example.com" class="button">&gt;600cal</a></li> -->
                 </ul>
             </div>
     
@@ -129,5 +156,16 @@
                 </div>
             </div>
         </div>
+        <!-- Script for filter button toggle -->
+        <script>
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Toggle the 'selected' class on click
+                    this.classList.toggle('selected');
+                });
+            });
+        </script>
     </body>
 </html>
