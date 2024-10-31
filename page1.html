@@ -14,7 +14,7 @@
             justify-content: center;
             justify-content: center;
             min-height: 100%;
-        }
+          
         .navbar {
             display: flex;
             gap: 11%;
@@ -120,7 +120,7 @@
         .controls button {
             background-color: #ffffff;
             border: none;
-            padding: 10px;
+            padding: 16px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -129,7 +129,7 @@
             background-color: #e0e0e0;
         }
         .submit-button {
-            background-color: #4ca44c;
+            background-color: #59c45b;
             color: #fff;
             border: none;
             padding: 10px;
@@ -142,14 +142,17 @@
         .submit-button:hover {
             background-color: #388e3c;
         }
+    }
     </style>
 </head>
 <body>
-    <nav class="navbar">
+    <div id="navbar-placeholder"></div>
+
+    <!-- <nav class="navbar">
         <a href="#"><u>Home</u></a>
         <a href="#"><u>Recipe List</u></a>
         <a href="#"><u>Nutrition Facts</u></a>
-    </nav>
+    </nav> -->
 
     <div class="content">
         <div class="logo-section">
@@ -188,6 +191,7 @@
 
         function submitIngredients() {
             alert('Ingredients submitted!');
+            window.location.href = 'page2.html';
         }
     </script>
 </body>
