@@ -51,12 +51,12 @@
         }
         .filter-section {
             /* Filter section backround */
-          flex: 0 0 20%;
-            width: 10%;
+            flex: 0 0 15%;
+            width: 20%;
             background-color: #345c45;
             color: white;
             padding: 20px;
-            height: 100%;
+            height: 100vh;
         }
         .filter-section h2 {
             /* Filter Section header "Filters" */
@@ -76,9 +76,10 @@
             /* Filter section boxes */
             background-color: #b9d1a1;
             font-family: Times New Roman;
-            font-size: 40px;
-            padding: 5px;
+            font-size: 35px;
+            padding: 10px;
             border-radius: 5px;
+            border-color: #b9d1a1;
             margin-bottom: 8px;
         }
         .active.selected {
@@ -111,6 +112,12 @@
             border-radius: 50%;
             margin: 0 auto 15px;
         }
+        .recipe-image img {
+            width: 100%;  /* Make the image fill the div */
+            height: 100%; /* Ensures the image stays contained */
+            object-fit: cover; /* Ensures the image covers the entire area without distortion */
+            border-radius: 50%; /* Keeps the image circular */
+        }
         .recipe-card h3 {
             /* Recipe name: "Recipe 1" */
             font-size: 30px;
@@ -141,17 +148,17 @@
             <div class="filter-section">
                 <h2 font-size: 20px;> </h2>
                 <ul>
-                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">Vegan</button>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected1')">Vegan</button>
                   <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">Halal</button>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected2')">Halal</button>
                   <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">Gluten Free</button>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected3')">Gluten Free</button>
                   <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Hello World')">Lactose Free</button>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected4')">Lactose Free</button>
                   <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">&lt;600cal</button>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected5')">&lt;600cal</button>
                   <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Hello world')">&gt;600cal</button>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected6')">&gt;600cal</button>
 
 
 <!-- 
