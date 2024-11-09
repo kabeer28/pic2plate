@@ -123,14 +123,8 @@
                   <br>
                   <button class = "active filter-btn" type="button" onclick="alert('Selected4')">Lactose Free</button>
                   <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Selected5')">&lt;600cal</button>
-                  <br>
-                  <button class = "active filter-btn" type="button" onclick="alert('Selected6')">&gt;600cal</button>
-                  <br>
                   <button class = "active filter-btn" type="button" onclick="alert('Selected1')">Vegetarian</button>
                   <br>
-
-
                 </ul>
             </div>
     
@@ -194,7 +188,6 @@
                 <!-- Script for backend data -->
                 <script>
                     // const apiURL = ...
-
                     // Get data from backend and update
                     async function loadRecipes() {
                 try { //statement to be executed if no errors
@@ -211,7 +204,6 @@
                         recipeCard.classList.add('recipe-card');
 
                                 recipeCard.innerHTML = `
-                                
                                     <div class="recipe-image">
                                         <img src="${recipe.image}" alt="${recipe.name}">
                                     </div>
@@ -227,7 +219,6 @@
                             console.error('Error fetching recipes:', error);
                         }
                     }
-
                     // Load recipes after the page loads
                     document.addEventListener('DOMContentLoaded', loadRecipes);
                 </script>
