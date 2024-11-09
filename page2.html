@@ -95,11 +95,12 @@
             /* Recipe name: "Recipe 1" */
             font-size: 30px;
             margin: 10px 0;
-            display: -webkit-box;            
-            -webkit-line-clamp: 2;           /* Limit the number of lines to 2 */
-            -webkit-box-orient: vertical;    /* Set the orientation of the box */
-            overflow: hidden;     /* Hides any text that exceeds the box */
-            text-overflow: ellipsis;  /* Adds '...' to indicate overflow */
+            display: -webkit-box;        
+            /* Limit number of lines to 2 and add ... for text overflow */
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;    
+            overflow: hidden;     
+            text-overflow: ellipsis;  
         }
         .recipe-card .add-button {
             /* '+' Buttons */
@@ -115,6 +116,12 @@
             text-decoration: none;
             width: 80px;
             height: 80px;
+        }
+        .add-button:hover{
+            background-color: #56725e;
+            transform: scale(1.04);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+
         }
         </style>
     </head>
