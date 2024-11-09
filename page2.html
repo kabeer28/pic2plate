@@ -63,7 +63,6 @@
             gap: 50px 10px;
             padding: 20px;
             height: 100%;
-            overflow-y: auto;
             justify-items: center;
             align-items : center;
         }
@@ -73,8 +72,8 @@
             border-radius: 20px;
             text-align: center;
             padding: 20px;
-            height : 320px;
-            width : 320px;
+            height : 300px;
+            width : 300px;
             justify-content: space-between;
 
         }
@@ -96,6 +95,11 @@
             /* Recipe name: "Recipe 1" */
             font-size: 30px;
             margin: 10px 0;
+            display: -webkit-box;            
+            -webkit-line-clamp: 2;           /* Limit the number of lines to 2 */
+            -webkit-box-orient: vertical;    /* Set the orientation of the box */
+            overflow: hidden;     /* Hides any text that exceeds the box */
+            text-overflow: ellipsis;  /* Adds '...' to indicate overflow */
         }
         .recipe-card .add-button {
             /* '+' Buttons */
