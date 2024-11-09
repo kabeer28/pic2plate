@@ -82,10 +82,10 @@
             margin: 0 auto 15px;
         }
         .recipe-image img {
-            width: 100%;  /* Make the image fill the div */
-            height: 100%; /* Ensures the image stays contained */
-            object-fit: cover; /* Ensures the image covers the entire area without distortion */
-            border-radius: 50%; /* Keeps the image circular */
+            width: 100%;  /* Makes the image fill the div */
+            height: 100%; /* image stays contained */
+            object-fit: cover; /* image covers the entire area without distortion */
+            border-radius: 50%; /* Keeps image circular */
         }
         .recipe-card h3 {
             /* Recipe name: "Recipe 1" */
@@ -112,7 +112,7 @@
     <body>
         <div class="container">
                 <!-- Filter Section -->
-            <div class="filter-section">
+            <!-- <div class="filter-section">
                 <h2 font-size: 20px;> </h2>
                 <ul>
                   <button class = "active filter-btn" type="button" onclick="alert('Selected1')">Vegan</button>
@@ -126,18 +126,15 @@
                   <button class = "active filter-btn" type="button" onclick="alert('Selected5')">&lt;600cal</button>
                   <br>
                   <button class = "active filter-btn" type="button" onclick="alert('Selected6')">&gt;600cal</button>
+                  <br>
+                  <button class = "active filter-btn" type="button" onclick="alert('Selected1')">Vegetarian</button>
+                  <br>
 
 
-<!-- 
-                    <li class="active"> <a href="https://www.example.com" class="button">+Vegan</a></li>
-                    <li class="active"> <a href="https://www.example.com" class="button">+Halal</a></li>
-                    <li class="active"> <a href="https://www.example.com" class="button">+Gluten Free</a></li>
-                    <li class="active"> <a href="https://www.example.com" class="button">&lt;600cal</a></li>
-                    <li class="active"> <a href="https://www.example.com" class="button">&gt;600cal</a></li> -->
                 </ul>
-            </div>
+            </div> -->
     
-            <!-- Recipe Grid Section -->
+            <!-- Recipe Grid Section - Placeholder before backend sends data, can be deleted-->
             <div class="recipe-grid">
                 <div class="recipe-card">
                     <div class="recipe-image">
@@ -181,7 +178,7 @@
                     <h3>Recipe 6</h3>
                     <a href="https://www.example.com" class="add-button">+</a>
                 </div>
-            </div>
+            </div> <!-- End of placeholder, can be deleted-->
         </div>
         <!-- Script for filter button toggle -->
         <script>
@@ -194,5 +191,45 @@
                 });
             });
         </script>
+                <!-- Script for backend data -->
+                <script>
+                    // const apiURL = ...
+
+                    // Get data from backend and update
+                    async function loadRecipes() {
+                try { //statement to be executed if no errors
+                    const response = await fetch(apiURL);
+                    const recipes = await response.json();
+
+                    const recipeGrid = document.querySelector('.recipe-grid');
+                    recipeGrid.innerHTML = ''; //Clear recipe grid
+
+                    // Loop through the recipes and create cards
+                    recipes.forEach(recipe => {
+                        // Create the recipe card HTML structure
+                        const recipeCard = document.createElement('div');
+                        recipeCard.classList.add('recipe-card');
+
+                                recipeCard.innerHTML = `
+                                
+                                    <div class="recipe-image">
+                                        <img src="${recipe.image}" alt="${recipe.name}">
+                                    </div>
+
+                                    <h3>${recipe.name}</h3>
+                                    <a href="${recipe.url}" class="add-button" target="_blank">+</a>
+                                `;
+
+                         //Add new recipe card to the grid after getting data
+                            recipeGrid.appendChild(recipeCard);
+                            });
+                        } catch (error) { //Error message
+                            console.error('Error fetching recipes:', error);
+                        }
+                    }
+
+                    // Load recipes after the page loads
+                    document.addEventListener('DOMContentLoaded', loadRecipes);
+                </script>
     </body>
 </html>
