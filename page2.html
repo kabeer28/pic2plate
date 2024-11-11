@@ -11,12 +11,16 @@
             margin: 0;
             padding: 0;
             height: 100%;
+            /* width: 100%; */
+            /* overflow-x: auto; */
         }
         .container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             height: 100%;
+            width: 100%;
+            overflow-x: auto;
         }
         .filter-section {
             /* Filter section backround */
@@ -51,6 +55,7 @@
             gap: 50px 10px;
             padding: 20px;
             height: 100%;
+            width: 100%;
             justify-items: center;
             justify-content: center;
             align-items : center;
@@ -77,10 +82,10 @@
             margin: 0 auto 15px;
         }
         .recipe-image img {
-            width: 100%;  /* Makes the image fill the div */
-            height: 100%; /* image stays contained */
-            object-fit: cover; /* image covers the entire area without distortion */
-            border-radius: 50%; /* Keeps image circular */
+            width: 100%;  
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 50%; /* Makes image circular */
         }
         .recipe-card h3 {
             /* Recipe name: "Recipe 1" */
@@ -213,9 +218,9 @@
                                         }
 
                                         recipeCard.innerHTML = `
-                                            <div class="recipe-image">${imageHtml}</div>
-                                            ${nameHtml}
-                                            ${urlHtml}
+                                            <div class="recipe-image">${imageHTML}</div>
+                                            ${nameHTML}
+                                            ${urlHTML}
                                         `;
                                         //Add new recipe card to the grid after getting data
                                             recipeGrid.appendChild(recipeCard);
