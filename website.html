@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="filter-section">
-                <h2>Filter</h2>
+                <h2>Filters</h2>
                 <button class="filter-button" onclick="toggleFilter('halal')">halal</button>
                 <button class="filter-button" onclick="toggleFilter('vegan')">vegan</button>
                 <button class="filter-button" onclick="toggleFilter('gluten free')">gluten free</button>
@@ -51,8 +51,33 @@
         </div>
     </section>
     <section id="recipe-section" class = "recipe-container"> 
-        <div class="recipe-grid">
-        </div>
+        <!-- style="display: none"; -->
+        <div class="recipe-grid"> <!-- Placeholder data -->
+            <div class="recipe-card">      
+                <h3>Recipe 1</h3>
+                <a href="https://www.example.com" class="add-button">+</a>
+            </div>
+            <div class="recipe-card">   
+                <h3>Recipe 2</h3>
+                <a href="https://www.example.com" class="add-button">+</a>
+            </div>
+            <div class="recipe-card">  
+                <h3>Recipe 3</h3>
+                <a href="https://www.example.com" class="add-button">+</a>
+            </div>
+            <div class="recipe-card">   
+                <h3>Recipe 4</h3>
+                <a href="https://www.example.com" class="add-button">+</a>
+            </div>
+            <div class="recipe-card"> 
+                <h3>Recipe 5</h3>
+                <a href="https://www.example.com" class="add-button">+</a>
+            </div>
+            <div class="recipe-card">   
+                <h3>Recipe 6</h3>
+                <a href="https://www.example.com" class="add-button">+</a>
+            </div>
+        </div> <!-- End of placeholder data -->
     </section>
     <section id="about-section" class="about-container">
         <div class="description-container">
@@ -69,7 +94,11 @@
             </p>
         </div>
         <div class="contact">
-            <h3>Contact Us</h3>
+            <h3>
+            <a href="https://kabeermakkar.com" target="_blank" style="text-decoration: none; color: inherit;">
+                Contact Us
+            </a>
+        </h3>
             <p>
                 Have feedback or questions? We'd love to hear from you! Reach out to us via email: 
                 <a href="mailto:example@queensu.ca">pic2plate@gmail.ca</a>.
@@ -147,6 +176,9 @@
             border-radius: 10px;
             background-color: #56c091 ;
             text-align: center;
+            flex: auto;
+            box-sizing: border-box;
+            overflow: auto;
         }
         .filter-button{
           font-size: 30px;
@@ -181,10 +213,9 @@
             margin: 0px 30px 30px 30px;
         }
         .ingredient-top h3{
-            font-size: 300%;
-            font-style: italic;
+            font-size: 2em;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 400;
+            font-weight: 600;
             border-radius: 50px;
         }
         .ingredients-display {
@@ -302,6 +333,7 @@
             max-width: 100%;
             margin-inline: auto;
             min-height :100vh;
+            background-color: #a7e7c8;
         }
         .recipe-container{
             display: flex;
@@ -334,21 +366,13 @@
                 grid-template-columns: repeat(3, 1fr); /* 3 columns */
             }
         }
-        .recipe-card-a {
-            background-color: #73a077;
+        .recipe-card {
+            background-color: #79a489;
             border-radius: 20px;
             text-align: center;
             padding: 20px;
-            height : 300px;
-            width : 300px;
-        }
-        .recipe-card-b {
-            background-color: #e4f2e9;
-            border-radius: 20px;
-            text-align: center;
-            padding: 20px;
-            height : 300px;
-            width : 300px;
+            height: 300px;
+            width: 300px;
         }
         .recipe-image img {
             width: 130px;
@@ -563,69 +587,35 @@
             scrollToSection('recipe-section');
         }
 
+        // Get data from backend and update
         async function loadRecipes() {
-            try {
-            const response = await fetch(apiURL);
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            const recipes = await response.json();
+        try {
+          const response = await fetch(apiURL);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const recipes = await response.json();
 
-            const recipeGrid = document.querySelector(".recipe-grid");
-            recipeGrid.innerHTML = ""; // Clear previous content
+          const recipeGrid = document.querySelector(".recipe-grid");
+          recipeGrid.innerHTML = ""; // Clear previous content
 
-
-            if (recipes.length === 0) {
-                recipeGrid.innerHTML = "<p>No recipes found. Please try again later.</p>";
-                return;
-            }
-
-            recipes.forEach((recipe) => {
+          recipes.forEach((recipe) => {
             const recipeCard = document.createElement("div");
             recipeCard.classList.add("recipe-card");
 
-            const imageDiv = document.createElement("div");
-            imageDiv.classList.add("recipe-image");
-
-            const image = document.createElement("img");
-            image.src = recipe.image || 'placeholder.jpg';
-            image.alt = recipe.name || 'Unknown Recipe';
-            imageDiv.appendChild(image);
-
-            const title = document.createElement("h3");
-            title.textContent = recipe.name || 'Unknown Recipe';
-
-            const link = document.createElement("a");
-            link.href = recipe.url;
-            link.target = '_blank';
-            link.classList.add('add-button');
-            link.textContent = '+';
-
-            recipeCard.append(imageDiv, title, link);
+            recipeCard.innerHTML = `
+              <div class="recipe-image">
+                <img src="${recipe.image}" alt="${recipe.name}" />
+              </div>
+              <h3>${recipe.name}</h3>
+              <a href="${recipe.url}" class="add-button" target="_blank">+</a>
+            `;
             recipeGrid.appendChild(recipeCard);
-        });
-
-            // Show the recipe section
-            const recipeSection = document.getElementById('recipe-section');
-            recipeSection.style.display = 'block';
-            // recipes.forEach((recipe) => {
-            //     const recipeCard = document.createElement("div");
-            //     recipeCard.classList.add("recipe-card");
-
-            //     recipeCard.innerHTML = `
-            //     <div class="recipe-image">
-            //         <img src="${recipe.image}" alt="${recipe.name}" />
-            //     </div>
-            //     <h3>${recipe.name}</h3>
-            //     <a href="${recipe.url}" class="add-button" target="_blank">+</a>
-            //     `;
-            //     recipeGrid.appendChild(recipeCard);
-            // });
-            } catch (error) {
-            console.error("Failed to load recipes:", error);
-            }
+          });
+        } catch (error) { //Error case
+          console.error("Failed to load recipes:", error); 
         }
-        
+      }
         // Load recipes after the page loads
         document.addEventListener('DOMContentLoaded', () => {
             // Hide recipe section initially

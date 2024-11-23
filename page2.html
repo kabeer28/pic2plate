@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Grid</title>
+    <style>
+      body {
+        font-family: Georgia, "Times New Roman", Times, serif, Sans-Serif;
+        background-color: #d3f0df;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow-x: auto;
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 100%;
+        width: 100%;
+        overflow-x: auto;
+      }
+      .recipe-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(3, 440px);
+        gap: 20px;
+        padding: 20px;
+        height: 100%;
+        justify-items: center;
+        align-items: center;
+        overflow-y: auto;
+      }
+      .recipe-card {
+        background-color: #79a489;
+        border-radius: 20px;
+        text-align: center;
+        padding: 20px;
+        height: 300px;
+        width: 300px;
+      }
+      .recipe-image img {
+        width: 130px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+      }
+      .recipe-card h3 {
+        font-size: 30px;
+        margin: 10px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .add-button {
+        font-size: 60px;
+        color: #ffffff;
+        background-color: #345c45;
+        border: none;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: inline-block;
+        text-decoration: none;
+
+        line-height: 70px;
+        cursor: pointer;
+      }
+      .add-button:hover {
+        background-color: #56725e;
+        transform: scale(1.04);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="recipe-grid"> <!-- Placeholder data -->
+        <div class="recipe-card">     
+          <h3>Recipe 1</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card">  
+          <h3>Recipe 2</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card"> 
+          <h3>Recipe 3</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card">    
+          <h3>Recipe 4</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card"> 
+          <h3>Recipe 5</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card">   
+          <h3>Recipe 6</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+      </div> <!-- End of placeholder data -->
+    </div>
+    <script>
+      const apiURL = "/api/recipes"; // Backend endpoint
+
+      async function loadRecipes() {
+        try {
+          const response = await fetch(apiURL);
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const recipes = await response.json();
+
+          const recipeGrid = document.querySelector(".recipe-grid");
+          recipeGrid.innerHTML = ""; // Clear previous content
+
+          recipes.forEach((recipe) => {
+            const recipeCard = document.createElement("div");
+            recipeCard.classList.add("recipe-card");
+
+            recipeCard.innerHTML = `
+              <div class="recipe-image">
+                <img src="${recipe.image}" alt="${recipe.name}" />
+              </div>
+              <h3>${recipe.name}</h3>
+              <a href="${recipe.url}" class="add-button" target="_blank">+</a>
+            `;
+            recipeGrid.appendChild(recipeCard);
+          });
+        } catch (error) { //Error case
+          console.error("Failed to load recipes:", error); 
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", loadRecipes);
+    </script>
+  </body>
+</html>
