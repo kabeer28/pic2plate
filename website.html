@@ -23,6 +23,7 @@
                 <button class="filter-button" onclick="toggleFilter('halal')">halal</button>
                 <button class="filter-button" onclick="toggleFilter('vegan')">vegan</button>
                 <button class="filter-button" onclick="toggleFilter('gluten free')">gluten free</button>
+                <button class="filter-button" onclick="toggleFilter('vegetarian')">vegetarian</button>
                 <button class="filter-button" onclick="toggleFilter('lactose free')">lactose free</button>
             </div>
         </div>
@@ -37,10 +38,14 @@
                     <video id="video" autoplay></video>
                 </div>
                 <div class="controls">
-                    <button onclick="addImage()">+</button>
-                    <button onclick="removeImage()">-</button>
+                    <button onmouseover="previewAddMessage()" onmouseout="clearPreviewMessage()" onclick="addImage()" class = "add">+</button>
+                    <button onmouseover="previewRemoveMessage()" onmouseout="clearPreviewMessage()" onclick="removeImage()" class = "minus">-</button>
                 </div>
-                <button class="submit-button" onclick="scrollToSection('recipe-section'),submitFilters()"><h4>Submit & View Recipes</h4>
+                <div id="preview-container">
+                    <p id="preview-message"></p>
+                </div>
+                <button class="submit-button" onclick="submitFilters()">
+                    <h4>Submit & View Recipes</h4>
                 </button>
             </div>
         </div>
@@ -93,14 +98,27 @@
         </div>
     </section>
     <section id="about-section" class="about-container">
-        <div id="description" class="description-container">
-            <h5>This is a project created by 5 Queen's university students who are passionate about food and technology. We hope to make meal planning easier for everyone.</h5>
+        <div class="description-container">
+            <h2>About Us</h2>
+            <p>
+                We are a team of five Queen's University students passionate about combining technology and culinary art. 
+                Our mission is to simplify meal planning by providing innovative solutions tailored to your dietary needs 
+                and preferences.
+            </p>
+            <p>
+                With a shared enthusiasm for programming, design, and healthy eating, we created this app to turn your 
+                ingredients into delicious, easy-to-make recipes. Whether you're looking for vegan, halal, or gluten-free 
+                options, we've got you covered!
+            </p>
         </div>
         <div class="contact">
-            <h5>Contact us:</h5>
-            <p>Email Address:</p>
+            <h3>Contact Us</h3>
+            <p>
+                Have feedback or questions? We'd love to hear from you! Reach out to us via email: 
+                <a href="mailto:example@queensu.ca">pic2plate@gmail.ca</a>.
+            </p>
         </div>
-    </section>
+    </section>    
     <style>
         html {
             scroll-behavior: smooth;
@@ -148,9 +166,7 @@
             flex: 1;
             margin-top: 50px;
         }
-        .logo-section {
-            
-        }
+        
         .logo-section img{
             height: 100%;
             width: 100%;
@@ -168,22 +184,22 @@
         }
         .filter-section h2 {
             font-size: 40px;
-            font-style: italic;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 400;
-            padding: 2px 10px;
-            border-radius: 50px;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 10px;
             background-color: #56c091 ;
             text-align: center;
         }
         .filter-button{
           font-size: 30px;
           margin-top: 20px;
-          padding: 5px 20px;
+          padding: 5px 10px;
           border-radius: 50px;
           background-color: #8fe6bf;
           border-color: #8fe6bf;
           text-align: center;
+          cursor: pointer;
         }
         .filter-button.selected {
             background-color: #345c45; /* Darker color to indicate selection */
@@ -204,7 +220,7 @@
         .ingredient-top {
             background-color: #f38cad;
             text-align: center;
-            border-radius: 50px;
+            border-radius: 50px 0px 50px 0px;
             margin: 0px 30px 30px 30px;
         }
         .ingredient-top h3{
@@ -225,49 +241,92 @@
             gap: 10px;
         }
         .ingredients-display img{
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             object-fit:contain;
             border-radius: 5px;
         }
         .camera-section{
             background-color: #e4f2e9;
+            justify-content: center;
             border-radius: 8px;
             padding: 10px;
-            max-height: 300px;
+            min-height: 180px;
             margin-bottom: 20px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
         #video {
-            width: 70px;
-            height: 70px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
             border-radius: 5px;
         }
+
+        #preview-container {
+            position: absolute;
+            top: 20px; /* Adjust as necessary */
+            left: 50%; /* Position it in the center */
+            transform: translateX(-50%); /* Center horizontally */
+            background-color: #f0f0f0; /* Grey background */
+            padding: 10px 15px; /* Add some padding */
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            visibility: hidden; /* Hide by default */
+            opacity: 0; /*Make it invisible*/
+            transition: opacity 0.3s ease-in-out; /* Smooth transition */
+        }
+
+        /* Show the preview box when the message is visible */
+        #preview-container.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
         .controls {
             display: flex;
-            justify-content:space-around;
-            gap: 0px;
-            margin-bottom:20px;
+            justify-content: space-around; /* Center align horizontally */
+            align-items: center; /* Center align vertically */
+            gap: 20px; /* Increase space between buttons and value */
+            margin-bottom: 20px;
         }
-        .controls button{
-            text-align: center;
-            background-color: #ffffff;
-            border: none;
-            font-size: 60px;
+
+        .controls button {
+            background-color: #ffffff; /* Button background */
             font-weight: bold;
-            border-radius: 50% ;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            font-size: 40px; /* Adjust font size for aesthetics */
+            width: 80px; /* Circular button dimensions */
+            height: 80px;
+            border: none; /* Remove default border */
+            color: #333; /* Button text color */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+            border-radius: 50%; /* Perfect circle */
+            display: flex;
+            justify-content: center; /* Center-align "+" and "-" */
+            align-items: center;
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s, transform 0.2s ease; /* Smooth transitions */
         }
+
+        .controls button:hover {
+            background-color: #e0e0e0; /* Light gray hover effect */
+            transform: scale(1.1); /* Slight zoom on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+        }
+
+        .control-value {
+            color: #333;
+            text-align: center;
+        }
+
         .submit-button {
            justify-content: center;
            border-radius: 30px;
-           background-color: #0f61a5;
+           background-color:#00bf63;
            display: block; /* Ensures it respects the centering */
            margin: 0 auto; /* Centers the button */
+           cursor: pointer;
         }
         .submit-button h4{
             background-color: #00bf63;
@@ -275,6 +334,11 @@
             color: #ffffff;
             font-style: oblique;
             text-shadow: #1a1a1a;
+        }
+        .submit-button:hover {
+            background-color: #00bf63;
+            transform: scale(1.04);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
         }
         #recipe-section {
             max-width: 100%;
@@ -378,49 +442,58 @@
         }
 
         #about-section {
-            background-color: #303030;
+            background-color: #1a6946;
             color: #fff;
-            width: 100%;
-            padding: 40px 20px; /* Adds space around content */
-            margin-top: auto;
-            box-sizing: border-box;
-        }
-        #description {
-            background-color: #a98fe6;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            border-radius: 400px 0px; /* Rounded corners for a softer look */
-        }
-        .description h5{
+            padding: 40px 20px;
+            margin-top: 20px;
             text-align: center;
-            color: #1a1a1a; /* Slightly softer black for contrast */
-            font-size: 20px;
-            font-style: italic;
-            padding: 10px 0; /* Adds top and bottom padding */
-            margin: 0;
-            transition: color 0.3s;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .description h5:hover{
-            color: #1a1a1a; /* Darkens on hover */
+
+        .description-container {
+            background-color:#ef7a9f;
+            padding: 20px;
+            margin: 0 auto;
+            border-radius: 20px;
+            max-width: 800px;
+            font-size: 18px;
+            line-height: 1.6;
         }
-       
-        .contact h5{
-            text-align: start;
+
+        .description-container h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 36px;
+        }
+
+        .description-container p {
+            color: #f5f5f5;
+            margin-bottom: 15px;
+        }
+
+        .contact {
+            margin-top: 30px;
+        }
+
+        .contact h3 {
             color: #ffd700;
+            font-size: 24px;
             text-decoration: underline;
-            text-decoration-style: wavy;
-            font-weight: bold;
         }
-        .contact:hover {
-            color: #e6c200; /* Darkens on hover */
-            text-decoration-style: solid; /* Switches to solid line on hover */
+
+        .contact p a {
+            color: #ffd700;
+            text-decoration: none;
         }
+
+        .contact p a:hover {
+            text-decoration: underline;
+        }
+
     </style>
     <script>
-        // alert("Hello World");
+
         function startCamera(){
             navigator.mediaDevices.getUserMedia({video: true}).then
             (stream =>{
@@ -431,6 +504,30 @@
                 console.log('navigator.getUserMedia error: ', error)
             });
         }
+
+        // Function to show the preview message
+        function previewAddMessage() {
+            const previewContainer = document.getElementById("preview-container");
+            const previewMessage = document.getElementById("preview-message");
+            previewMessage.textContent = "Click to add an ingredient"; // Customize your message
+            previewContainer.classList.add("show");
+        }
+
+        // Function to show the remove message
+        function previewRemoveMessage() {
+            const previewContainer = document.getElementById("preview-container");
+            const previewMessage = document.getElementById("preview-message");
+            previewMessage.textContent = "Click to remove an ingredient"; // Customize your message
+            previewContainer.classList.add("show");
+        }
+
+        // Function to hide the preview message
+        function clearPreviewMessage() {
+            const previewContainer = document.getElementById("preview-container");
+            previewContainer.classList.remove("show");
+        }
+
+
 
         function addImage(){
             const video = document.getElementById('video');
@@ -476,9 +573,11 @@
             if (isSelected) {
                 selectedFilters = selectedFilters.filter(f => f !== filter); // Remove filter if already selected
                 button.classList.remove('selected'); // Remove 'selected' style
+                alert(`Filter "${filter}" deselected.`); 
             } else {
                 selectedFilters.push(filter); // Add filter if not selected
                 button.classList.add('selected'); // Apply 'selected' style
+                alert(`Filter "${filter}" selected.`); 
             }
             console.log(selectedFilters); // Debug: log current filters
         }
@@ -488,6 +587,13 @@
             console.log('No filters selected');
         }
 
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
         // Function to submit selected filters to the backend
         async function submitFilters() {
             try {
@@ -512,9 +618,11 @@
             } catch (error) {
                 console.error('Error:', error);
             }
+            scrollToSection('recipe-section');
         }
 
        
+
         // Get data from backend and update
         async function loadRecipes() {
             try { //runs if no errors
