@@ -6,10 +6,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 </head>
 <body>
-    <div id="navbar-placeholder" class="navbar">
+    <button id="toggle-btn">☰</button>
+    <div id="navbar-placeholder">
+        <div class="navbar">
         <a href="#home-page"><u>Home</u></a>
         <a href="#recipe-section"><u>Recipe</u></a>
         <a href="#about-section"><u>About</u></a>
+    </div>
     </div>
     <section id="home-page" class="home-container">
         <div class ="left-section">
@@ -108,10 +111,31 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        .main-container {
+        display: flex; /* Use flexbox to keep them side by side */
+        height: 100vh;
+        }
+        .navbar {
+        display: flex;
+        flex-direction: row; 
+        align-items: center; 
+        justify-content: space-around;
+        }
         #navbar-placeholder {
             position: fixed;
             top: 0;
-            justify-content: flex-start;
+            left: -450px;
+            width: 250px;
+            height: 100%;
+            background-color: 56c091;
+            padding: 20px;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            /* transform: translateY(-100%); */
+        }
+        #navbar-placeholder.open {
+            left: 0; 
+            margin-left: 60px;
         }
         .navbar a {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -122,9 +146,31 @@
             padding: 9px 10px;
             background-color:  #56c091;
             border-radius: 30px;
-            margin-top: 20px;
-            margin-left: 10px;
-            margin-right: 20px;
+            margin-bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .content {
+        margin-left: 270px; /* Offset content from the sidebar */
+        padding: 20px;
+        width: calc(100% - 270px); /* Content takes the remaining space */
+        transition: margin-left 0.3s ease;
+        }
+        #toggle-btn {
+        font-size: 30px;
+        cursor: pointer;
+        padding: 10px;
+        background-color: #345c45;
+        color: white;
+        border-radius: 50%;
+        border: none;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1100;
+        text-align: center;
+
         }
         #home-page {
             max-width: 100%;
@@ -210,7 +256,7 @@
             box-sizing: border-box;
         }
         .ingredient-top h3{
-            font-size: 3em;
+            font-size: 2em;
             font-style: italic;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 400;
@@ -474,7 +520,8 @@
 
     </style>
     <script>
-
+        
+        //Camera
         function startCamera(){
             navigator.mediaDevices.getUserMedia({video: true}).then
             (stream =>{
@@ -509,7 +556,6 @@
         }
 
 
-
         function addImage(){
             const video = document.getElementById('video');
             const ingredientsDisplay = document.getElementById('ingredients-display');
@@ -542,6 +588,7 @@
             }
         }
 
+        //Filters
          // Array to hold selected filters
          let selectedFilters = [];
 
@@ -602,7 +649,21 @@
             scrollToSection('recipe-section');
         }
 
-        // Get data from backend and update
+        document.getElementById('toggle-btn').addEventListener('click', function() {
+        const sidebar = document.getElementById('navbar-placeholder');
+        const content = document.getElementById('content');
+        
+        sidebar.classList.toggle('open'); // Add or remove the 'open' class to slide the sidebar in/out
+        
+        // Shift the content to the right when the sidebar is visible
+        if (sidebar.classList.contains('open')) {
+            content.style.marginLeft = '270px'; // Shift content to the right
+        } else {
+            content.style.marginLeft = '20px'; // Reset content position when sidebar is hidden
+        }
+        });
+
+        // Get data from backend for recipe grid and update
         async function loadRecipes() {
         try {
           const response = await fetch(apiURL);
