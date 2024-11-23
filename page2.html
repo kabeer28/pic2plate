@@ -113,7 +113,125 @@
         }
       }
 
+<<<<<<< HEAD
       document.addEventListener("DOMContentLoaded", loadRecipes);
     </script>
   </body>
 </html>
+=======
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Recipe Grid Section - Placeholder before backend sends data, can be deleted?-->
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="example-image.jpg" alt="Recipe Image">
+                    </div>       
+                    <h3>Recipe 1</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="example-image.jpg" alt="Recipe Image">
+                    </div>     
+                    <h3>Recipe 2</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="example-image.jpg" alt="Recipe Image">
+                    </div>     
+                    <h3>Recipe 3</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="example-image.jpg" alt="Recipe Image">
+                    </div>     
+                    <h3>Recipe 4</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="example-image.jpg" alt="Recipe Image">
+                    </div>     
+                    <h3>Recipe 5</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="example-image.jpg" alt="Recipe Image">
+                    </div>     
+                    <h3>Recipe 6</h3>
+                    <a href="https://www.example.com" class="add-button">+</a>
+                </div>
+            </div> <!-- End of placeholder, can be deleted later-->
+        </div>
+                <!-- Script for backend data -->
+                <script>
+                    // const apiURL = ...
+                    // Get data from backend and update
+                    async function loadRecipes() {
+                        try { //runs if no errors
+                            const response = await fetch(apiURL); //Request data from backend
+                            const recipes = await response.json();
+
+                            const recipeGrid = document.querySelector('.recipe-grid');
+                            recipeGrid.innerHTML = ''; //Clear recipe grid
+
+                            // Loop through the recipes and create cards
+                            recipes.forEach(recipe => {
+                                        // Create the recipe card HTML structure
+                                        const recipeCard = document.createElement('div');
+                                        recipeCard.classList.add('recipe-card');
+
+                                        //image
+                                        let imageHTML = '';
+                                        try{
+                                            imageHTML = `
+                                                    <div class="recipe-image">
+                                                        <img src="${recipe.image}" alt="${recipe.name}">
+                                                    </div>
+                                                `;
+                                        } catch(error){
+                                             console.error ('Image Error', error);
+                                        }
+
+                                        //name
+                                        let nameHTML = '';
+                                        try{
+                                            nameHTML = `
+                                                <h3>${recipe.name}</h3> `       
+                                        } catch(error){
+                                            console.error ('Name Error', error);
+                                        }
+
+                                        //url
+                                        let urlHTML = '';
+                                        try{
+                                            urlHTML = `
+                                            <a href="${recipe.url}" class="add-button" target="_blank">+</a>`;
+                                        } catch(error) {
+                                            console.error('URL Error', error);
+                                        }
+
+                                        recipeCard.innerHTML = `
+                                            <div class="recipe-image">${imageHTML}</div>
+                                            ${nameHTML}
+                                            ${urlHTML}
+                                        `;
+                                        //Add new recipe card to the grid after getting data
+                                            recipeGrid.appendChild(recipeCard);
+                                    });
+                                } catch (error) { //Error message
+                                    console.error ('Error1', error)
+                                }
+                    }
+                    // Load recipes after the page loads
+                    document.addEventListener('DOMContentLoaded', loadRecipes);
+                </script>
+    </body>
+</html>
+>>>>>>> 2b96a76f5a9a4e8b65a25543943e967fe709c1c5
