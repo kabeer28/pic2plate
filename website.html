@@ -20,17 +20,17 @@
             </div>
             <div class="filter-section">
                 <h2>Filters</h2>
-                <button class="filter-button" onclick="toggleFilter('halal')">halal</button>
-                <button class="filter-button" onclick="toggleFilter('vegan')">vegan</button>
-                <button class="filter-button" onclick="toggleFilter('gluten free')">gluten free</button>
-                <button class="filter-button" onclick="toggleFilter('vegetarian')">vegetarian</button>
-                <button class="filter-button" onclick="toggleFilter('lactose free')">lactose free</button>
+                <button class="filter-button" onclick="toggleFilter('halal')">Halal</button>
+                <button class="filter-button" onclick="toggleFilter('vegan')">Vegan</button>
+                <button class="filter-button" onclick="toggleFilter('gluten free')">Gluten free</button>
+                <button class="filter-button" onclick="toggleFilter('vegetarian')">Vegetarian</button>
+                <button class="filter-button" onclick="toggleFilter('lactose free')">Lactose free</button>
             </div>
         </div>
         <div class ="right-section">
             <div class="ingredient-section">
                 <div class="ingredient-top">
-                    <h3>Ingredients</h3></div>
+                    <h3 onmouseover="previewIngredientMessage()" onmouseout="clearPreviewMessage()">Ingredients</h3></div>
                 <div class="ingredients-display" id="ingredients-display">
                     <!-- Ingredient images will appear here -->
                 </div>
@@ -53,27 +53,27 @@
     <section id="recipe-section" class = "recipe-container"> 
         <!-- style="display: none"; -->
         <div class="recipe-grid"> <!-- Placeholder data -->
-            <div class="recipe-card">      
+            <div class="recipe-card-a">      
                 <h3>Recipe 1</h3>
                 <a href="https://www.example.com" class="add-button">+</a>
             </div>
-            <div class="recipe-card">   
+            <div class="recipe-card-b">   
                 <h3>Recipe 2</h3>
                 <a href="https://www.example.com" class="add-button">+</a>
             </div>
-            <div class="recipe-card">  
+            <div class="recipe-card-a">  
                 <h3>Recipe 3</h3>
                 <a href="https://www.example.com" class="add-button">+</a>
             </div>
-            <div class="recipe-card">   
+            <div class="recipe-card-b">   
                 <h3>Recipe 4</h3>
                 <a href="https://www.example.com" class="add-button">+</a>
             </div>
-            <div class="recipe-card"> 
+            <div class="recipe-card-a"> 
                 <h3>Recipe 5</h3>
                 <a href="https://www.example.com" class="add-button">+</a>
             </div>
-            <div class="recipe-card">   
+            <div class="recipe-card-b">   
                 <h3>Recipe 6</h3>
                 <a href="https://www.example.com" class="add-button">+</a>
             </div>
@@ -130,6 +130,11 @@
             margin-left: 10px;
             margin-right: 20px;
         }
+        .navbar a:hover{
+            background-color: white;
+            transform: scale(1.04);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+        }
         #home-page {
             max-width: 100%;
             margin-inline: auto;
@@ -178,7 +183,9 @@
             text-align: center;
             flex: auto;
             box-sizing: border-box;
-            overflow: auto;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: normal;        
         }
         .filter-button{
           font-size: 30px;
@@ -211,12 +218,23 @@
             text-align: center;
             border-radius: 50px 0px 50px 0px;
             margin: 0px 30px 30px 30px;
+            padding: 20px;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
         }
         .ingredient-top h3{
-            font-size: 2em;
+            font-size: 3em;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 600;
-            border-radius: 50px;
+            margin: 0;
+            overflow: hidden;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit to 2 lines */
+            -webkit-box-orient: vertical;
+            white-space: normal; 
+            text-overflow: ellipsis;      
         }
         .ingredients-display {
             background-color: #e4f2e9;
@@ -327,13 +345,13 @@
             background-color: #00bf63;
             transform: scale(1.04);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
-            display: none;
         }
         #recipe-section {
             max-width: 100%;
             margin-inline: auto;
             min-height :100vh;
-            background-color: #a7e7c8;
+            /* background-color: #a7e7c8; */
+            background: linear-gradient(45deg,#d6ffe6, #a7e7c8);
         }
         .recipe-container{
             display: flex;
@@ -366,8 +384,16 @@
                 grid-template-columns: repeat(3, 1fr); /* 3 columns */
             }
         }
-        .recipe-card {
-            background-color: #79a489;
+        .recipe-card-a {
+            background-color: #73a077;
+            border-radius: 20px;
+            text-align: center;
+            padding: 20px;
+            height: 300px;
+            width: 300px;
+        }
+        .recipe-card-b {
+            background-color: #e4f2e9;
             border-radius: 20px;
             text-align: center;
             padding: 20px;
@@ -493,6 +519,12 @@
         }
 
 
+        function previewIngredientMessage(){
+            const previewContainer = document.getElementById("preview-container");
+            const previewMessage = document.getElementById("preview-message");
+            previewMessage.textContent = "This is a placeholder for images of your ingredients .Take pictures of your ingredient and add or delete it here"; // Customize your message
+            previewContainer.classList.add("show");
+        }
 
         function addImage(){
             const video = document.getElementById('video');
@@ -551,6 +583,7 @@
         } else {
             console.log('No filters selected');
         }
+
 
 
         function scrollToSection(sectionId) {
