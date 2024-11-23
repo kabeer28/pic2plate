@@ -204,13 +204,24 @@
             text-align: center;
             border-radius: 50px 0px 50px 0px;
             margin: 0px 30px 30px 30px;
+            padding: 20px;
+            max-width: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
         }
         .ingredient-top h3{
-            font-size: 300%;
+            font-size: 3em;
             font-style: italic;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 400;
-            border-radius: 50px;
+            margin: 0;
+            overflow: hidden;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit to 2 lines */
+            -webkit-box-orient: vertical;
+            white-space: normal; 
+            text-overflow: ellipsis;      
         }
         .ingredients-display {
             background-color: #e4f2e9;
