@@ -26,12 +26,10 @@
         flex: 1;
         display: grid;
         grid-template-columns: repeat(3, 440px);
-        gap: 50px 10px;
+        gap: 20px;
         padding: 20px;
         height: 100%;
-        width: 100%;
         justify-items: center;
-        justify-content: center;
         align-items: center;
         overflow-y: auto;
       }
@@ -65,21 +63,46 @@
         width: 80px;
         height: 80px;
         display: inline-block;
-        text-decoration: none; /* Add this line */
+        text-decoration: none;
 
         line-height: 70px;
         cursor: pointer;
       }
       .add-button:hover {
-        background-color: #56725e; /* Darker shade for hover */
-        transform: scale(1.04); /* Slight zoom effect */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Add shadow on hover */
+        background-color: #56725e;
+        transform: scale(1.04);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="recipe-grid"></div>
+      <div class="recipe-grid"> <!-- Placeholder data -->
+        <div class="recipe-card">     
+          <h3>Recipe 1</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card">  
+          <h3>Recipe 2</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card"> 
+          <h3>Recipe 3</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card">    
+          <h3>Recipe 4</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card"> 
+          <h3>Recipe 5</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+        <div class="recipe-card">   
+          <h3>Recipe 6</h3>
+          <a href="https://www.example.com" class="add-button">+</a>
+        </div>
+      </div> <!-- End of placeholder data -->
     </div>
     <script>
       const apiURL = "/api/recipes"; // Backend endpoint
@@ -108,8 +131,8 @@
             `;
             recipeGrid.appendChild(recipeCard);
           });
-        } catch (error) {
-          console.error("Failed to load recipes:", error);
+        } catch (error) { //Error case
+          console.error("Failed to load recipes:", error); 
         }
       }
 
