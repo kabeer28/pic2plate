@@ -6,35 +6,31 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 </head>
 <body>
-    <button id="toggle-btn">☰</button>
-    <div id="navbar-placeholder">
-        <div class="navbar">
+    <div id="navbar-placeholder" class="navbar">
         <a href="#home-page"><u>Home</u></a>
         <a href="#recipe-section"><u>Recipe</u></a>
         <a href="#about-section"><u>About</u></a>
     </div>
-    </div>
     <section id="home-page" class="home-container">
         <div class ="left-section">
             <div class="logo-section">
-                <img src="pic2plate_logo.png" alt="logo-icon">
+                <img src="/static/pic2plate_logo.png"" alt="logo-icon">
                 <div class="tagline"><em>Your trusted companion in meal planning</em>
                 </div>
             </div>
             <div class="filter-section">
-                <h2>Filters</h2>
-                <button class="filter-button" onclick="toggleFilter('halal')">Halal</button>
-                <button class="filter-button" onclick="toggleFilter('vegan')">Vegan</button>
-                <button class="filter-button" onclick="toggleFilter('gluten free')">Gluten free</button>
-                <button class="filter-button" onclick="toggleFilter('vegetarian')">Vegetarian</button>
-                <button class="filter-button" onclick="toggleFilter('lactose free')">Lactose free</button>
+                <h2>Filter</h2>
+                <button class="filter-button" onclick="toggleFilter('halal')">halal</button>
+                <button class="filter-button" onclick="toggleFilter('vegan')">vegan</button>
+                <button class="filter-button" onclick="toggleFilter('gluten free')">gluten free</button>
+                <button class="filter-button" onclick="toggleFilter('vegetarian')">vegetarian</button>
+                <button class="filter-button" onclick="toggleFilter('lactose free')">lactose free</button>
             </div>
         </div>
         <div class ="right-section">
             <div class="ingredient-section">
                 <div class="ingredient-top">
-                    <h3 onmouseover="previewIngredientMessage()"
-                     onmouseout="clearPreviewMessage()">Ingredients</h3></div>
+                    <h3>Ingredients</h3></div>
                 <div class="ingredients-display" id="ingredients-display">
                     <!-- Ingredient images will appear here -->
                 </div>
@@ -42,49 +38,62 @@
                     <video id="video" autoplay></video>
                 </div>
                 <div class="controls">
-                    <button onmouseover="previewAddMessage()"
-                    onmouseout="clearPreviewMessage()" onclick="addImage()" class = "add">+</button>
-                    <button onmouseover="previewRemoveMessage()"
-                    onmouseout="clearPreviewMessage()" onclick="removeImage()" class = "minus">-</button>
+                    <button onmouseover="previewAddMessage()" onmouseout="clearPreviewMessage()" onclick="addImage()" class = "add">+</button>
+                    <button onmouseover="previewRemoveMessage()" onmouseout="clearPreviewMessage()" onclick="removeImage()" class = "minus">-</button>
                 </div>
                 <div id="preview-container">
                     <p id="preview-message"></p>
                 </div>
-                <button class="submit-button" onclick="submitFilters()">
+                <button class="submit-button" onclick="fetchRecipes()">
                     <h4>Submit & View Recipes</h4>
                 </button>
             </div>
         </div>
     </section>
-    <section id="recipe-section" class = "recipe-container"> 
-        <!-- style="display: none"; -->
-        <div class="recipe-grid"> <!-- Placeholder data -->
-            <div class="recipe-card-a">      
-                <h3>Recipe 1</h3>
-                <a href="https://www.example.com" class="add-button">+</a>
-            </div>
-            <div class="recipe-card-b">   
-                <h3>Recipe 2</h3>
-                <a href="https://www.example.com" class="add-button">+</a>
-            </div>
-            <div class="recipe-card-a">  
-                <h3>Recipe 3</h3>
-                <a href="https://www.example.com" class="add-button">+</a>
-            </div>
-            <div class="recipe-card-b">   
-                <h3>Recipe 4</h3>
-                <a href="https://www.example.com" class="add-button">+</a>
-            </div>
-            <div class="recipe-card-a"> 
-                <h3>Recipe 5</h3>
-                <a href="https://www.example.com" class="add-button">+</a>
-            </div>
-            <div class="recipe-card-b">   
-                <h3>Recipe 6</h3>
-                <a href="https://www.example.com" class="add-button">+</a>
-            </div>
-        </div> <!-- End of placeholder data -->
+    <section id="recipe-section" class="recipe-container">
+        <div class="recipe-grid" id="recipes">
+            <!-- Dynamic recipe cards will be inserted here -->
+        </div>
     </section>
+    <script>
+        async function fetchRecipes() {
+            const recipesContainer = document.getElementById('recipes');
+            recipesContainer.innerHTML = ''; // Clear previous recipes
+
+            try {
+                const response = await fetch('/get_recipes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const recipes = await response.json();
+                    recipes.forEach(recipe => {
+                        const recipeCard = `
+                            <div class="recipe-card">
+                                <div class="recipe-image">
+                                    <img src="${recipe.image}" alt="Recipe Image">
+                                </div>
+                                <h3>${recipe.title}</h3>
+                                <a href="${recipe.url}" class="add-button" target="_blank">+</a>
+                            </div>
+                        `;
+                        recipesContainer.innerHTML += recipeCard;
+                    });
+                } else {
+                    recipesContainer.innerHTML = `<p>No recipes found or an error occurred.</p>`;
+                }
+            } catch (error) {
+                recipesContainer.innerHTML = `<p>An error occurred: ${error.message}</p>`;
+            }
+        }
+
+    
+        // Call fetchRecipes manually or trigger it after user submits ingredients
+    </script>
+    
     <section id="about-section" class="about-container">
         <div class="description-container">
             <h2>About Us</h2>
@@ -100,11 +109,7 @@
             </p>
         </div>
         <div class="contact">
-            <h3>
-            <a href="https://kabeermakkar.com" target="_blank" style="text-decoration: none; color: inherit;">
-                Contact Us
-            </a>
-        </h3>
+            <h3>Contact Us</h3>
             <p>
                 Have feedback or questions? We'd love to hear from you! Reach out to us via email: 
                 <a href="mailto:example@queensu.ca">pic2plate@gmail.ca</a>.
@@ -117,33 +122,11 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: black;
-        }
-        .main-container {
-        display: flex; /* Use flexbox to keep them side by side */
-        height: 100vh;
-        }
-        .navbar {
-        display: flex;
-        flex-direction: row; 
-        align-items: center; 
-        justify-content: space-around;
         }
         #navbar-placeholder {
             position: fixed;
             top: 0;
-            left: -450px;
-            width: 250px;
-            height: 100%;
-            background-color: 56c091;
-            padding: 20px;
-            z-index: 1000;
-            transition: left 0.3s ease;
-            /* transform: translateY(-100%); */
-        }
-        #navbar-placeholder.open {
-            left: 0; 
-            margin-left: 60px;
+            justify-content: flex-start;
         }
         .navbar a {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -154,44 +137,9 @@
             padding: 9px 10px;
             background-color:  #56c091;
             border-radius: 30px;
-            margin-bottom: 0;
-            margin-top: 10px;
-            margin-left: 20px;
+            margin-top: 20px;
+            margin-left: 10px;
             margin-right: 20px;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-        }
-        .content {
-        margin-left: 270px; /* Offset content from the sidebar */
-        padding: 20px;
-        width: calc(100% - 270px); /* Content takes the remaining space */
-        transition: margin-left 0.3s ease;
-        }
-        #toggle-btn {
-        font-size: 30px;
-        cursor: pointer;
-        padding: 10px;
-        background-color: #345c45;
-        color: white;
-        border-radius: 50%;
-        border: none;
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 1100;
-        text-align: center;
-
-        }
-        .navbar a:hover{
-            background-color: white;
-            transform: scale(1.04);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
-        }
-        .navbar a:hover{
-            background-color: white;
-            transform: scale(1.04);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
         }
         #home-page {
             max-width: 100%;
@@ -200,7 +148,7 @@
             
         }
         .home-container {
-            background-image: url(pic2plate_bg.png);
+            background-image: url('/static/pic2plate_bg.png');
             display:flex;
             width: cover;
             padding: 20px 20px;
@@ -239,11 +187,6 @@
             border-radius: 10px;
             background-color: #56c091 ;
             text-align: center;
-            flex: auto;
-            box-sizing: border-box;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: normal;        
         }
         .filter-button{
           font-size: 30px;
@@ -276,23 +219,13 @@
             text-align: center;
             border-radius: 50px 0px 50px 0px;
             margin: 0px 30px 30px 30px;
-            padding: 20px;
-            max-width: 100%;
-            overflow: hidden;
-            box-sizing: border-box;
         }
         .ingredient-top h3{
-            font-size: 3em;
+            font-size: 300%;
+            font-style: italic;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-weight: 600;
-            margin: 0;
-            overflow: hidden;
-            word-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* Limit to 2 lines */
-            -webkit-box-orient: vertical;
-            white-space: normal; 
-            text-overflow: ellipsis;      
+            font-weight: 400;
+            border-radius: 50px;
         }
         .ingredients-display {
             background-color: #e4f2e9;
@@ -408,30 +341,25 @@
             max-width: 100%;
             margin-inline: auto;
             min-height :100vh;
-            /* background-color: #a7e7c8; */
-            background: linear-gradient(45deg,#d6ffe6, #a7e7c8);
         }
         .recipe-container{
-            /* display: flex; */
-            flex-direction: row, column;
-            justify-content: space-between;
-            height: 100%;
-            width: 100%;
-            overflow: auto;
+            background-color: #a7e7c8;
+            width: cover;
+            padding: 20px 20px;
+            background-size: cover;
         }
         .recipe-grid {
-            flex: 1;
             display: grid;
-            grid-template-columns: repeat(3, 440px);
+            grid-template-columns: repeat(3, minmax(200px, 1fr));
             gap: 50px 10px;
             padding: 20px;
             height: 100%;
             width: 100%;
             justify-items: center;
             justify-content: center;
-            align-items: center;
+            align-items : center;
             overflow-y: auto;
-           
+            overflow-x: auto;
         }
         @media (min-width: 200px) {
             .container {
@@ -448,44 +376,61 @@
             border-radius: 20px;
             text-align: center;
             padding: 20px;
-            height: 300px;
-            width: 300px;
-            box-shadow: 10px 10px 30px #d6ffe6;
+            height : 300px;
+            width : 300px;
+            justify-content: space-between;
+            flex:auto;
         }
         .recipe-card-b {
             background-color: #e4f2e9;
             border-radius: 20px;
             text-align: center;
             padding: 20px;
-            height: 300px;
-            width: 300px;
-            box-shadow: 10px 10px 30px  black;
+            height : 300px;
+            width : 300px;
+            justify-content: space-between;
+            flex:auto;
         }
-        .recipe-image img {
+        .recipe-card .recipe-image {
+            /* Recipe image */
             width: 130px;
             height: 130px;
-            object-fit: cover;
+            background-color: #e1e1e1;
             border-radius: 50%;
             margin: 0 auto 15px;
         }
-        .recipe-card h3 {
+        .recipe-image img {
+            width: 100%;  
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 50%; /* Makes image circular */
+        }
+        .recipe-image h3 {
+            /* Recipe name: "Recipe 1" */
             font-size: 30px;
             margin: 10px 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            display: -webkit-box;        
+            /* Limit number of lines to 2 and adds ... for text overflow */
+            -webkit-line-clamp: 2; 
+            -webkit-box-orient: vertical;    
+            overflow: hidden;     
+            text-overflow: ellipsis;  
+
         }
         .add-button {
+             /* '+' Buttons */
+             display: inline-block;
             font-size: 60px;
             color: #ffffff;
             background-color: #345c45;
             border: none;
             border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            display: inline-block;
-            text-decoration: none; /* Add this line */
+            text-align: center;
             line-height: 70px;
             cursor: pointer;
+            text-decoration: none;
+            width: 80px;
+            height: 80px;
         }
         .add-button:hover{
             background-color: #56725e;
@@ -502,6 +447,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+
         .description-container {
             background-color:#ef7a9f;
             padding: 20px;
@@ -544,8 +490,7 @@
 
     </style>
     <script>
-        
-        //Camera
+
         function startCamera(){
             navigator.mediaDevices.getUserMedia({video: true}).then
             (stream =>{
@@ -579,12 +524,7 @@
             previewContainer.classList.remove("show");
         }
 
-        function previewIngredientMessage(){
-            const previewContainer = document.getElementById("preview-container");
-            const previewMessage = document.getElementById("preview-message");
-            previewMessage.textContent = "This is a placeholder for images of your ingredients .Take pictures of your ingredient and add or delete it here"; // Customize your message
-            previewContainer.classList.add("show");
-        }
+
 
         function addImage(){
             const video = document.getElementById('video');
@@ -618,7 +558,6 @@
             }
         }
 
-        //Filters
          // Array to hold selected filters
          let selectedFilters = [];
 
@@ -646,7 +585,6 @@
         }
 
 
-
         function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
@@ -661,76 +599,93 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ filters: selectedFilters }) // Send filters to backend
+                    body: JSON.stringify({filters: selectedFilters}) // Send filters to backend
                 });
 
                 if (response.ok) {
                     console.log('Filters submitted successfully');
-                    // Optionally reload recipes with filters applied
-                    loadRecipes(); // Call function to reload recipes based on new filters
-                    // Show the recipe section after submitting the ingredients
-                    const recipeSection = document.getElementById('recipes-section');
-                    recipeSection.style.display = 'block';  // Make the recipe section visible
+                    const filters = await response.json();
+                    // // Optionally reload recipes with filters applied
+                    // loadRecipes(); // Call function to reload recipes based on new filters
+                    // // Show the recipe section after submitting the ingredients
+                    // const recipeSection = document.getElementById('recipes-section');
+                    // recipeSection.style.display = 'block';  // Make the recipe section visible
                 } else {
                     console.error('Failed to submit filters');
-                    
                 }
             } catch (error) {
                 console.error('Error:', error);
             }
-            scrollToSection('recipe-section');
+            
         }
 
-        document.getElementById('toggle-btn').addEventListener('click', function() {
-        const sidebar = document.getElementById('navbar-placeholder');
-        const content = document.getElementById('content');
-        
-        sidebar.classList.toggle('open'); // Add or remove the 'open' class to slide the sidebar in/out
-        
-        // Shift the content to the right when the sidebar is visible
-        if (sidebar.classList.contains('open')) {
-            content.style.marginLeft = '270px'; // Shift content to the right
-        } else {
-            content.style.marginLeft = '20px'; // Reset content position when sidebar is hidden
-        }
-        });
+       
 
-        // Get data from backend for recipe grid and update
+        // Get data from backend and update
         async function loadRecipes() {
-        try {
-          const response = await fetch(apiURL);
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          const recipes = await response.json();
+            try { //runs if no errors
+                // const apiURL = ...
+                const response = await fetch(apiURL); //Request data from backend
+                const recipes = await response.json();
 
-          const recipeGrid = document.querySelector(".recipe-grid");
-          recipeGrid.innerHTML = ""; // Clear previous content
+                const recipeGrid = document.querySelector('.recipe-grid');
+                recipeGrid.innerHTML = ''; //Clear recipe grid
 
-          recipes.forEach((recipe) => {
-            const recipeCard = document.createElement("div");
-            recipeCard.classList.add("recipe-card");
+                // Loop through the recipes and create cards
+                recipes.forEach(recipe => {
+                    // Create the recipe card HTML structure
+                    const recipeCard = document.createElement('div');
+                    recipeCard.classList.add('recipe-card');
 
-            recipeCard.innerHTML = `
-              <div class="recipe-image">
-                <img src="${recipe.image}" alt="${recipe.name}" />
-              </div>
-              <h3>${recipe.name}</h3>
-              <a href="${recipe.url}" class="add-button" target="_blank">+</a>
-            `;
-            recipeGrid.appendChild(recipeCard);
-          });
-        } catch (error) { //Error case
-          console.error("Failed to load recipes:", error); 
+                    //image
+                    let imageHTML = '';
+                    try{
+                        imageHTML = `
+                                <div class="recipe-image">
+                                    <img src="${recipe.image}" alt="${recipe.name}">
+                                </div>
+                            `;
+                    } catch(error){
+                            console.error ('Image Error', error);
+                    }
+
+                    //name
+                    let nameHTML = '';
+                    try{
+                        nameHTML = `
+                            <h3>${recipe.name}</h3> `       
+                    } catch(error){
+                        console.error ('Name Error', error);
+                    }
+
+                    //url
+                    let urlHTML = '';
+                    try{
+                        urlHTML = `
+                        <a href="${recipe.url}" class="add-button" target="_blank">+</a>`;
+                    } catch(error) {
+                        console.error('URL Error', error);
+                    }
+
+                    recipeCard.innerHTML = `
+                        <div class="recipe-image">${imageHTML}</div>
+                        ${nameHTML}
+                        ${urlHTML}
+                    `;
+                    //Add new recipe card to the grid after getting data
+                        recipeGrid.appendChild(recipeCard);
+                });
+            } catch (error) { //Error message
+                console.error ('Error1', error)
+            }
         }
-      }
         // Load recipes after the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            // Hide recipe section initially
-            const recipeSection = document.getElementById('recipes-section');
-            recipeSection.style.display = 'none';  // Make sure recipe section is hidden initially
-            loadRecipes();
-        });
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     // Hide recipe section initially
+        //     const recipeSection = document.getElementById('recipes-section');
+        //     recipeSection.style.display = 'none';  // Make sure recipe section is hidden initially
+        //     loadRecipes();
+        // });
         // Start the camera when the page loads
         window.onload = startCamera;
     </script>
