@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Define your functions (get_first_search_result, my_filtering_function, etc.) here.
 def get_first_search_result(query):
-    api_key = '6c5ed0297a457c521221d82ab650462c7d1e3b0d918a9b137ebf6593ae3df4ef'
+    api_key = 'nuh uh'
     params = {
         "engine": "google",
         "q": query,
@@ -35,7 +35,7 @@ def generate_recipe_url(ingredients, number=6):
     return url
 
 def my_custom_function(url):
-    api_key = "3be2a6e8823940f499833fe6b3a591f3"
+    api_key = "not here either"
     headers = {
         'x-api-key': api_key
     }
