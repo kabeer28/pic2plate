@@ -33,7 +33,8 @@
         <div class ="right-section">
             <div class="ingredient-section">
                 <div class="ingredient-top">
-                    <h3 onmouseover="previewIngredientMessage()" onmouseout="clearPreviewMessage()">Ingredients</h3></div>
+                    <h3 onmouseover="previewIngredientMessage()"
+                     onmouseout="clearPreviewMessage()">Ingredients</h3></div>
                 <div class="ingredients-display" id="ingredients-display">
                     <!-- Ingredient images will appear here -->
                 </div>
@@ -41,8 +42,10 @@
                     <video id="video" autoplay></video>
                 </div>
                 <div class="controls">
-                    <button onmouseover="previewAddMessage()" onmouseout="clearPreviewMessage()" onclick="addImage()" class = "add">+</button>
-                    <button onmouseover="previewRemoveMessage()" onmouseout="clearPreviewMessage()" onclick="removeImage()" class = "minus">-</button>
+                    <button onmouseover="previewAddMessage()"
+                    onmouseout="clearPreviewMessage()" onclick="addImage()" class = "add">+</button>
+                    <button onmouseover="previewRemoveMessage()"
+                    onmouseout="clearPreviewMessage()" onclick="removeImage()" class = "minus">-</button>
                 </div>
                 <div id="preview-container">
                     <p id="preview-message"></p>
@@ -114,6 +117,7 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: black;
         }
         .main-container {
         display: flex; /* Use flexbox to keep them side by side */
@@ -151,6 +155,9 @@
             background-color:  #56c091;
             border-radius: 30px;
             margin-bottom: 0;
+            margin-top: 10px;
+            margin-left: 20px;
+            margin-right: 20px;
             width: 100%;
             box-sizing: border-box;
             text-align: center;
@@ -405,12 +412,12 @@
             background: linear-gradient(45deg,#d6ffe6, #a7e7c8);
         }
         .recipe-container{
-            display: flex;
-            flex-direction: row;
+            /* display: flex; */
+            flex-direction: row, column;
             justify-content: space-between;
             height: 100%;
             width: 100%;
-            overflow-x: auto;
+            overflow: auto;
         }
         .recipe-grid {
             flex: 1;
@@ -424,6 +431,7 @@
             justify-content: center;
             align-items: center;
             overflow-y: auto;
+           
         }
         @media (min-width: 200px) {
             .container {
@@ -442,6 +450,7 @@
             padding: 20px;
             height: 300px;
             width: 300px;
+            box-shadow: 10px 10px 30px #d6ffe6;
         }
         .recipe-card-b {
             background-color: #e4f2e9;
@@ -450,6 +459,7 @@
             padding: 20px;
             height: 300px;
             width: 300px;
+            box-shadow: 10px 10px 30px  black;
         }
         .recipe-image img {
             width: 130px;
@@ -492,7 +502,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
         .description-container {
             background-color:#ef7a9f;
             padding: 20px;
